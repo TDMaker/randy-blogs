@@ -1,15 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tdmaker.github.io/randy-blogs/</id>
-    <title>Gridea</title>
-    <updated>2019-06-24T00:44:06.324Z</updated>
+    <title>性感知识，在线分享</title>
+    <updated>2019-06-26T05:45:14.780Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tdmaker.github.io/randy-blogs/"/>
     <link rel="self" href="https://tdmaker.github.io/randy-blogs//atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://tdmaker.github.io/randy-blogs//images/avatar.png</logo>
     <icon>https://tdmaker.github.io/randy-blogs//favicon.ico</icon>
-    <rights>All rights reserved 2019, Gridea</rights>
+    <rights>All rights reserved 2019, 性感知识，在线分享</rights>
+    <entry>
+        <title type="html"><![CDATA[Nginx 实现负载均衡有三种策略]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/three-way-of-nginx-for-load-balancing</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/three-way-of-nginx-for-load-balancing">
+        </link>
+        <updated>2019-06-26T01:42:06.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><strong>轮询调度算法（Round-Robin）</strong>
+轮询调度算法的原理，就是是把用户的请求按照顺序的轮流分配给app server，不断循环。</li>
+<li><strong>最少连接（least-connected）</strong>
+Nginx 会找出最少的连接的服务器出来，把用户的请求分配到该台app server。</li>
+<li><strong>IP散列算法（ip-hash）</strong>
+根据用户请求的IP，通过散列算法把请求分配到不同的服务器上。
+IP-HASH 和 session 同步有关，这个算法的大致原理就是，根据请求的目标IP地址，作为散列键从静态分配的散列表找出对应的服务器，然后根据这台服务器的负载能力进行转发。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows 下 Vmware 虚拟出的几个网卡设备及其作用]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/names-and-functions-of-several-virtual-nic-created-by-vmware-on-windows</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/names-and-functions-of-several-virtual-nic-created-by-vmware-on-windows">
+        </link>
+        <updated>2019-06-26T01:34:56.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="名称及作用">名称及作用：</h3>
+<ul>
+<li><strong>VMnet0</strong>：这是 VMware 用于虚拟桥接网络下的虚拟交换机，一般是不可见的，因为桥接一般直接使用真实网卡；</li>
+<li><strong>VMnet1</strong>：这是 VMware 用于虚拟Host-Only网络下的虚拟交换机；</li>
+<li><strong>VMnet8</strong>：这是 VMware 用于虚拟NAT网络下的虚拟交换机；</li>
+<li><strong>VMware Network Adapter VMnet1</strong>：这是 Host 用于与 Host-Only 虚拟网络进行通信的虚拟网卡；</li>
+<li><strong>VMware Network Adapter VMnet8</strong>：这是 Host 用于与 NAT 虚拟网络进行通信的虚拟网卡；</li>
+</ul>
+<h3 id="桥接和-nat-的区别">桥接和 NAT 的区别：</h3>
+<ul>
+<li><strong>桥接</strong>：就是通过一台设备（可能不止一个）把几个网络串起来形成的连接。
+<em><strong>数据流向</strong></em>：虚拟机系统-&gt;真实网卡-&gt;路由器-&gt;真实网卡-&gt;实体机系统。</li>
+<li><strong>NAT模式</strong>： 实际是虚拟了一个网卡出来，虚拟机直接使用链接这个虚拟网卡，每次访问和交互通过这个虚拟网卡交换数据。
+<em><strong>虚拟机发送数据给实体机</strong></em>：虚拟机系统-&gt;虚拟网卡-&gt;实体机系统（可以发现是不经过真实网卡的流程简单很多）；
+<em><strong>虚拟机访问外网</strong></em>：虚拟机系统-&gt;虚拟网卡-&gt;实体机系统-&gt;真实网卡-&gt;路由器-&gt;外网。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[常见算法英文缩写]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/english-abbreviations-of-common-algorithms</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/english-abbreviations-of-common-algorithms">
+        </link>
+        <updated>2019-06-26T01:32:42.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><strong>BF</strong> - 暴力匹配算法</li>
+<li><strong>DP</strong> - 动态规划</li>
+<li><strong>BST</strong> - 二叉搜索树</li>
+<li><strong>RBT</strong> - 红黑树</li>
+<li><strong>DC</strong> - 分治算法</li>
+<li><strong>TS</strong> - 拓扑</li>
+<li><strong>KNN</strong> -邻近算法</li>
+<li><strong>SNN</strong> -脉冲神经网络</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[几种括号的中英文名称]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/several-names-of-brackets</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/several-names-of-brackets">
+        </link>
+        <updated>2019-06-26T01:30:01.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><strong>{ }</strong> braces 或 curly brackets 大括号</li>
+<li><strong>[ ]</strong>  square brackets 或 brackets 方括号</li>
+<li><strong>&lt; &gt;</strong> angled brackets 尖括号</li>
+<li><strong>( )</strong> parentheses 圆括号</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[精力管理的几种方法]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/ways-to-manage-your-energy</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/ways-to-manage-your-energy">
+        </link>
+        <updated>2019-06-26T01:28:23.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>减少内耗；</li>
+<li>学会聚焦，降低任务切换频率；</li>
+<li>学会真正的休息，找到最适合自己的休息方式。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[UX 十诫]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/top-ten-rules-of-ux</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/top-ten-rules-of-ux">
+        </link>
+        <updated>2019-06-26T01:27:09.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>从好的默认设定开始；</li>
+<li>记住一切你应该记住的；</li>
+<li>使用用户的语言讲话；</li>
+<li>别让用户去做本该你做的事情；</li>
+<li>别让边缘情况支配主流场景；</li>
+<li>别让用户去思考；</li>
+<li>别让用户来确认；</li>
+<li>支持撤销；</li>
+<li>恰到好处的可定制程度；</li>
+<li>引导用户。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[重构最佳实践]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/the-best-practice-in-code-refactoring</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/the-best-practice-in-code-refactoring">
+        </link>
+        <updated>2019-06-26T01:16:23.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>重构：</strong></p>
+<ul>
+<li>在不改变代码外部行为的情况下修改源代码</li>
+</ul>
+<p><strong>重构目的：</strong></p>
+<ul>
+<li>精简代码，规范化代码，模块化代码，删除无用代码；</li>
+<li>统一基础类库，统一相同功能的实现方式；</li>
+<li>提高性能。</li>
+</ul>
+<p><strong>重构最佳实践：</strong></p>
+<ul>
+<li>重构前一定要预估风险。如果没有足够的自动化测试，最好是先完善自动化测试代码；</li>
+<li>重构的目的和范围要明确，切忌盲目修改。前端代码的重构目的主要是提高代码的可维护性，可读性和性能；</li>
+<li>最好是先易后难，循序渐进。首先修改诸如命名，格式等不涉及具体逻辑的内容, 然后考虑模块化和性能提升等与具体逻辑相关的内容；</li>
+<li>重构过程中要持续测试，在多个浏览器中测试，确保重构的部分功能正确。切忌在大量重构后再进行测试，因为大量重构后基本很难记得重构的逻辑，也就有可能遗漏部分测试用例；</li>
+<li>如果是性能提升，要事先检测网站的整体性能并量化，找出性能瓶颈。重构过程中要持续监控性能，并对比性能提升的效果。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[为什么有的编程规范要求用 void 0 代替 undefined ?]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/why-void-0-rather-than-undefined</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/why-void-0-rather-than-undefined">
+        </link>
+        <updated>2019-06-26T01:12:53.000Z</updated>
+        <content type="html"><![CDATA[<p><code>Undefined</code> 类型表示未定义，它的类型只有一个值，就是 <code>undefined</code>。任何变量在赋值前是 <code>Undefined</code> 类型、值为 <code>undefined</code>，一般我们可以用全局变量 <code>undefined</code>（就是名为 <code>undefined</code> 的这个变量）来表达这个值，或者 <code>void</code> 运算来把任意一个表达式变成 <code>undefined</code> 值。</p>
+<p>但是呢，因为 <code>JavaScript</code> 的代码 <code>undefined</code> 是一个变量，而并非是一个关键字，这是 <code>JavaScript</code> 语言公认的设计失误之一，所以，我们为了避免无意中被篡改，我建议使用 <code>void 0</code> 来获取 <code>undefined</code> 值。</p>
+<p>——来自《重学前端》</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BT 搜索网站]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/awesome-websites-of-bit-torrents-search-engine</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/awesome-websites-of-bit-torrents-search-engine">
+        </link>
+        <updated>2019-06-25T01:29:20.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li><a href="https://cachetorrent.com/">LimeTorrents - Download Verified Torrents</a></li>
+<li><a href="http://www.pushbt2.com/">PushBT平台|推送BT</a></li>
+<li><a href="https://www.cilisharez.com/">btsearchs_bt种子搜索器网站</a></li>
+<li><a href="https://www.cl8.biz/">最佳的磁力搜索引擎-磁力吧</a></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Facebook 虚拟货币 Libra 尝鲜]]></title>
         <id>https://tdmaker.github.io/randy-blogs//post/libra-the-virtual-currency-by-facebook</id>
@@ -117,23 +274,6 @@ Events:
 ContractEvent { access_path: AccessPath { address: c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361, type: Resource, hash: &quot;217da6c6b3e19f1825cfb2676daecce3bf3de03cf26647c78df00b371b25cc97&quot;, suffix: &quot;/sent_events_count/&quot; } , index: 0, event_data: AccountEvent { account: f75eadda412615ef7c662f426a9750f98f2fb9bcc2662a5ae4e140c60b40cab8, amount: 50000000000 } }
 ContractEvent { access_path: AccessPath { address: f75eadda412615ef7c662f426a9750f98f2fb9bcc2662a5ae4e140c60b40cab8, type: Resource, hash: &quot;217da6c6b3e19f1825cfb2676daecce3bf3de03cf26647c78df00b371b25cc97&quot;, suffix: &quot;/received_events_count/&quot; } , index: 0, event_data: AccountEvent { account: c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361, amount: 50000000000 } }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Dota2 英雄图]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/some-hero-images-of-dota2</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/some-hero-images-of-dota2">
-        </link>
-        <updated>2019-06-23T07:44:59.000Z</updated>
-        <content type="html"><![CDATA[<p><img src="https://tdmaker.github.io/randy-blogs//post-images/1561276159173.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276177855.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276189882.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276192936.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276198363.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276203261.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276207337.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276210268.jpg" alt="">
-<img src="https://tdmaker.github.io/randy-blogs//post-images/1561276213045.jpg" alt=""></p>
 ]]></content>
     </entry>
 </feed>

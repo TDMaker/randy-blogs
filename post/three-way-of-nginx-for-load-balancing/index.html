@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | 性感知识，在线分享</title>
+<title>Nginx 实现负载均衡有三种策略 | 性感知识，在线分享</title>
 <link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1561527911332">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -74,22 +74,43 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              关于
+              Nginx 实现负载均衡有三种策略
             </h2>
             <div class="post-info">
               <time class="post-time">
-                · 2019-01-25 ·
+                · 2019-06-26 ·
               </time>
+              
+                <a href="https://tdmaker.github.io/randy-blogs//tag/little-tips-about-cs" class="post-tag">
+                  # 技术小知识点
+                </a>
               
             </div>
             
             <div class="post-content">
-              <p>这是关于的页面，可以在这里向世界介绍你！</p>
+              <ul>
+<li><strong>轮询调度算法（Round-Robin）</strong>
+轮询调度算法的原理，就是是把用户的请求按照顺序的轮流分配给app server，不断循环。</li>
+<li><strong>最少连接（least-connected）</strong>
+Nginx 会找出最少的连接的服务器出来，把用户的请求分配到该台app server。</li>
+<li><strong>IP散列算法（ip-hash）</strong>
+根据用户请求的IP，通过散列算法把请求分配到不同的服务器上。
+IP-HASH 和 session 同步有关，这个算法的大致原理就是，根据请求的目标IP地址，作为散列键从静态分配的散列表找出对应的服务器，然后根据这台服务器的负载能力进行转发。</li>
+</ul>
 
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://tdmaker.github.io/randy-blogs//post/names-and-functions-of-several-virtual-nic-created-by-vmware-on-windows">
+              <h3 class="post-title">
+                Windows 下 Vmware 虚拟出的几个网卡设备及其作用
+              </h3>
+            </a>
+          </div>
         
 
         
