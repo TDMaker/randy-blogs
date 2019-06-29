@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tdmaker.github.io/randy-blogs/</id>
     <title>性感知识，在线分享</title>
-    <updated>2019-06-26T05:49:50.364Z</updated>
+    <updated>2019-06-29T01:47:42.853Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tdmaker.github.io/randy-blogs/"/>
     <link rel="self" href="https://tdmaker.github.io/randy-blogs//atom.xml"/>
@@ -10,6 +10,185 @@
     <logo>https://tdmaker.github.io/randy-blogs//images/avatar.png</logo>
     <icon>https://tdmaker.github.io/randy-blogs//favicon.ico</icon>
     <rights>All rights reserved 2019, 性感知识，在线分享</rights>
+    <entry>
+        <title type="html"><![CDATA[对于医疗项目框架的讲述——前端部分]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/an-explanation-of-medical-frameworks</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/an-explanation-of-medical-frameworks">
+        </link>
+        <updated>2019-06-26T05:54:00.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p><em>只讲组织结构和如何使用，如何实现可以看源码。不涉及怎样使用 Angular 以及其他相关技术</em></p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p><em>只讲组织结构和如何使用，如何实现可以看源码。不涉及怎样使用 Angular 以及其他相关技术</em></p>
+</blockquote>
+<!--more-->
+<h2 id="目录结构">目录结构</h2>
+<ul>
+<li>path-to-your-project/src/app/components：存储我定义的一些<strong>可复用组件</strong>，作用根据名称一目了然；</li>
+<li>path-to-your-project/src/app/container：存储网站主<strong>业务框架</strong>；</li>
+<li>path-to-your-project/src/app/components：存储我定义的一些可复用的<strong>指令</strong>；</li>
+<li>path-to-your-project/src/app/interceptors：存储我定义的一些<strong>拦截器</strong>；</li>
+<li>path-to-your-project/src/app/interfaces：存储我定义的一些<strong>接口</strong>；</li>
+<li>path-to-your-project/src/app/pipes：存储我定义的一些<strong>管道</strong>；</li>
+<li>path-to-your-project/src/app/service：存储我定义的一些<strong>服务</strong>；</li>
+<li>path-to-your-project/src/app/utils：存储我定义的一些<strong>杂项</strong>；</li>
+<li>path-to-your-project/src/app/views：存储我定义的一些<strong>视图组件</strong>。</li>
+</ul>
+<h2 id="界面部分">界面部分</h2>
+<ul>
+<li>
+<h3 id="左侧导航菜单">左侧导航菜单</h3>
+全功能列表存在如下文件中：
+<em><strong>path-to-your-project/src/app/_nav.ts</strong></em>
+TIPS：
+<ul>
+<li>与原框架相比，<code>NavData</code> 接口增加 <code>pcode?: string;</code>，<code>pcode</code> 对应于后台权限表中的某个权限的权限代码，登录时后台会以正则表达式字面量的形式返回当前用户所具有的所有权限，我会 test 这个 RegExp 与这些 pcode，true 则添加。如果某元素不含有 <code>pcode</code> 这个 property，则默认添加；</li>
+<li>只支持一层 <code>children</code> 嵌套，更深层次的嵌套不被解析；</li>
+<li><code>icon</code> 这个 property 是定义导航 item 的左侧图标的，原模板已经引入了一些图标，我有根据具体功能，新引入了几个阿里出品的开源图标，可根据具体业务功能类型添加。</li>
+</ul>
+</li>
+<li>
+<h3 id="主区域-tab-页">主区域 TAB 页</h3>
+Tab 页单击选中，双击关闭，Tab头可拖动，Tab 页最少会留一个“新标签页”。</li>
+</ul>
+<h2 id="路由设置">路由设置</h2>
+<p><em><strong>path-to-your-project/src/app/app.routing.ts</strong></em></p>
+<pre><code>...
+children: [
+      {
+        path: 'new-tab',
+        component: NewTabComponent,
+        data: {
+          title: '新标签页',
+          cid: '041FF088415C6BBF458F9475FEE79986'
+        }
+      },
+      {
+        path: 'system',
+        canLoad: [CanLoadGuard],
+        data: {pcode: '001'},
+        loadChildren: () =&gt; import('./views/system/system.module').then(m =&gt; m.SystemModule)
+      }
+    ]
+...
+</code></pre>
+<p><em><strong>path-to-your-project/app/views/system/system-routing.module.ts</strong></em></p>
+<pre><code>...
+children: [
+    {
+      path: 'people',
+      component: PeopleComponent,
+      data: {
+        title: '自然人管理',
+        cid: '88C9EF4BD6306E26D3D2DA01FC2BB0FE',
+        pcode: '001001',
+        reuse: true
+      }
+    }]
+...
+</code></pre>
+<h2 id="我写的一些公共功能的使用">我写的一些公共功能的使用</h2>
+<p><strong>基本上都可以在“自然人管理”这个例子下找到使用方法（要使用，先引入相关模块）</strong></p>
+<ul>
+<li><strong>datatable</strong> 是一个组件，相关设置通过属性传值，组件选择器与接口格式如下：
+<em><strong>path-to-your-project/src/app/views/system/people/people.component.html</strong></em></li>
+</ul>
+<pre><code class="language-html">&lt;app-rd-datatable #tb [rdTHead]=&quot;thead&quot; [rdTbConfig]=&quot;tbConfig&quot; (selectedRows)=&quot;setSelectedRows($event)&quot;&gt;&lt;/app-rd-datatable&gt;
+</code></pre>
+<p><em><strong>path-to-your-project/src/app/views/system/people/people.component.ts</strong></em></p>
+<pre><code class="language-typescript">thead: Array&lt;Array&lt;RdDatatableThTd&gt;&gt; = [
+    [
+      {content: '姓名', style: {width: '15%'}},
+      {content: '性别', style: {width: '10%'}},
+      {content: '电话', style: {width: '15%'}},
+      {content: '电子邮件', style: {width: '20%'}},
+      {content: '身份证', style: {width: '25%'}},
+      {content: '是否冻结', style: {width: '15%'}}
+    ]
+  ];
+  tbConfig: RdDatatableConf = {
+    url: 'system/people',
+    hasCheckBox: true,
+    rowsPrefetch: 100,
+    rowsPerPage: 5,
+    rowsTimes: [1, 2, 4, 6]
+  };
+</code></pre>
+<ul>
+<li><strong>datalist-validator</strong> 是一个指令，当表单中有长列表形式的域需要校验时，往往可以用到这个指令，如：
+<em><strong>path-to-your-project/src/app/views/system/people/people.component.html</strong></em></li>
+</ul>
+<pre><code class="language-html">&lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;country&quot; list=&quot;psy&quot; formControlName=&quot;country&quot; placeholder=&quot;请选择国家&quot; [appRdDatalist]=&quot;countrys4V&quot;/&gt;
+</code></pre>
+<p><em><strong>path-to-your-project/src/app/views/system/people/people.component.ts</strong></em></p>
+<pre><code class="language-typescript">this.countrys4V = this.countrys.map(e =&gt; e.countryName);
+</code></pre>
+<ul>
+<li><strong>http-interceptor</strong> 现在里面写了做四种功能的拦截，仅仅是提一下：
+<ul>
+<li>多线路选择与格式化请求的 URL ；</li>
+<li>填充必要 HEADERS；</li>
+<li>会话超时提示用户重新登录；</li>
+<li>打印请求日志；</li>
+<li>(TODO) 本地数据源代理。</li>
+</ul>
+</li>
+<li><strong>interfaces</strong> 里写了一堆接口，根据名字很容易看出功能。</li>
+<li><strong>pipes</strong> 里写了一个管道，用来在 datatable 显示的时候，自动加入 checkbox 使用。</li>
+<li><strong>utils</strong> 里写了两个 snippets，一个用于依赖注入的 Token 用于在请求拦截器里依赖注入备选URL数组，全局配置信息和响应式表单校验器。</li>
+<li><strong>login</strong> 登录页的表单是用了模板驱动表单，另外还有上面提到的响应式表单（自然人管理里用到）有示例。</li>
+<li><strong>services</strong> 一般都是根注入，这些都是类注入，关于非类注入，上面有一个全局配置信息的对象注入：
+<ul>
+<li><strong>can-load.guard</strong> 路由守卫，在上面配置路由时出现过，根据用户权限，判断应否 load 某模块，这只是其中一个守卫，另外还应有判断应否 Active 等的守卫；</li>
+<li><strong>rd-auth.service</strong>判断权限使用，包括判断用户是否登录和是否具有其试图触发路由的权限；</li>
+<li><strong>rd-browser-storage.service</strong> 根据 Angular 预置 Token，使用的是 LocalStorage 方式的存储，现在存了选举出的URL、用户权限正则字面量和用户是否登录。</li>
+<li><strong>rd-http.service</strong> 原则支持 RESTful，支持超时、重试、防抖等功能。支持带状态反馈的文件上传功能。</li>
+<li><strong>rd-message.service</strong> 一个简单日志打印服务，可扩充至复杂日志系统。</li>
+<li><strong>rd-modal.service</strong> Modal 功能，使用方法如下：</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-typescript">...
+this.rdModal.onHidden().subscribe(reason =&gt; {
+  switch (reason) {
+    case 'secondLogin':
+      this.login(true);
+      break;
+    case 'loginFailed':
+      this.formData.password = '';
+      break;
+  }
+});
+...
+const modalOptions = {
+  animated: true,
+  initialState: {
+    title: '用户登录提示',
+    content: '此用户已在别处登录，继续登录会将其踢下线，是否继续？',
+    btnSecondary: '否',
+    btnPrimary: '是',
+    reasonPositive: 'secondLogin',
+    type: 'danger'
+  },
+  class: 'modal-danger'
+};
+this.rdModal.show(modalOptions);
+...
+</code></pre>
+<ul>
+<li><strong>rd-reuse-strategy</strong> 路由策略</li>
+<li><strong>rd-ws.service</strong> WebSocket
+<ul>
+<li>支持重连；</li>
+<li>支持心跳；</li>
+<li>支持恶意请求或超时时的策略；</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Nginx 实现负载均衡有三种策略]]></title>
         <id>https://tdmaker.github.io/randy-blogs//post/three-way-of-nginx-for-load-balancing</id>
@@ -165,115 +344,6 @@ IP-HASH 和 session 同步有关，这个算法的大致原理就是，根据请
 <li><a href="https://www.cilisharez.com/">btsearchs_bt种子搜索器网站</a></li>
 <li><a href="https://www.cl8.biz/">最佳的磁力搜索引擎-磁力吧</a></li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Facebook 虚拟货币 Libra 尝鲜]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/libra-the-virtual-currency-by-facebook</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/libra-the-virtual-currency-by-facebook">
-        </link>
-        <updated>2019-06-24T00:24:25.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>总结自《<a href="https://mp.weixin.qq.com/s/mDtnOxlFujkjy4Tf3RRyMw">发起第一笔 Libra 转账极简教程</a>》</p>
-</blockquote>
-<p>搭建 Libra 的环境步骤如下：</p>
-<ol>
-<li>克隆并编译 Libra Core</li>
-</ol>
-<pre><code class="language-bash">$git clone https://github.com/libra/libra.git
-$cd libra
-$./scripts/dev_setup.sh
-</code></pre>
-<ol start="2">
-<li>编译客户端并连接到测试网络</li>
-</ol>
-<pre><code class="language-bash">$./scripts/cli/start_cli_testnet.sh
-</code></pre>
-<p>这条命令会编译客户端，并把客户端连接到 Libra 测试网络中的验证节点上。
-连接成功后，会看到这些输出信息：</p>
-<pre><code class="language-bash">usage: &lt;command&gt; &lt;args&gt;
-Use the following commands:
-account | a
-  Account operations
-query | q
-  Query operations
-transfer | transferb | t | tb
-  &lt;sender_account_address&gt;|&lt;sender_account_ref_id&gt; &lt;receiver_account_address&gt;|&lt;receiver_account_ref_id&gt; &lt;number_of_coins&gt; [gas_unit_price (default=0)] [max_gas_amount (default 10000)] Suffix 'b' is for blocking.
-  Transfer coins from account to another.
-help | h
-  Prints this help
-quit | q!
-  Exit this client
-Please, input commands:
-libra%
-</code></pre>
-<ol start="3">
-<li>创建测试账户</li>
-</ol>
-<pre><code class="language-bash">libra% account create
-&gt;&gt; Creating/retrieving next account from wallet
-Created/retrieved account #0 address c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361
-</code></pre>
-<p>address 后面的一长串字符就是你创建的账户地址，别人给你转账时需要填写这个地址。前面的 #0 是这个账户地址的本地编号，只是为了方便在本地操作账户，在区块链上没有意义。
-我们现在创建的这个账户暂时还只在本地，并没有出现在区块链上，只有以下两种情况发生之后，才会真正在区块链上创建这个账户：</p>
-<ol>
-<li>这个账户被铸币（mint），在测试网络上我们可以随意给账户里打钱，而 Libra 网络真正运行起来之后，这个环节应该类似充值，就是用法币兑换 Libra 币充到自己账户内。</li>
-<li>有其他用户转账（transfer）到这个账户。</li>
-<li>查询本地所有账户</li>
-</ol>
-<pre><code class="language-bash">libra% account list
-User account index: 0, address: 3ed8e5fafae4147b2a105a0be2f81972883441cfaaadf93fc0868e7a0253c4a8, sequence number: 0
-User account index: 1, address: 8337aac709a41fe6be03cad8878a0d4209740b1608f8a81566c9a7d4b95a2ec7, sequence number: 0
-</code></pre>
-<ol start="5">
-<li>查询账户余额</li>
-</ol>
-<pre><code class="language-bash">libra% query balance 0
-Balance is: 0
-</code></pre>
-<ol start="6">
-<li>给账户充值</li>
-</ol>
-<pre><code class="language-bash">libra% account mint 0 100
-&gt;&gt; Minting coins
-Mint request submitted
-</code></pre>
-<ol start="7">
-<li>发起转账</li>
-</ol>
-<pre><code class="language-bash">libra% transfer 0 1 15
-&gt;&gt; Transferring
-Transaction submitted to validator
-To query for transaction status, run: query txn_acc_seq 0 0 &lt;fetch_events=true|false&gt;
-</code></pre>
-<p>意思是转账交易已经提交给验证节点了，但这里多说一点细节，就是此时理论上只能认为转账信息已经提交到节点，但不保证已经被执行，按我的理解，就像你寄出的快递已经被快递小哥收走，但具体送到哪儿了，还得随时用快递单号查询。（把 transfer 换成 transferb 可以实时看到转账是否已经提交到区块链，这两个命令分别相当于异步转账和同步转账）
-8. 查询转账状态</p>
-<pre><code class="language-bash">libra% query txn_acc_seq 0 0 true
-&gt;&gt; Getting committed transaction by account and sequence number
-Committed transaction: SignedTransaction {
- raw_txn: RawTransaction {
-        sender: c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361,
-        sequence_number: 0,
-        payload: {,
-                transaction: peer_to_peer_transaction,
-                args: [
-                        {ADDRESS: f75eadda412615ef7c662f426a9750f98f2fb9bcc2662a5ae4e140c60b40cab8},
-                        {U64: 50000000000},
-                ]
-        },
-        max_gas_amount: 10000,
-        gas_unit_price: 0,
-        expiration_time: 1561335836s,
-},
- public_key: 3fc7ea1e028f23fb926baac4c45ef92ecba1d1e7f5ad1497538d51c2b82a4574,
- signature: Signature( R: CompressedEdwardsY: [243, 71, 157, 237, 123, 23, 132, 35, 242, 52, 33, 12, 210, 62, 10, 68, 199, 164, 214, 52, 129, 176, 183, 100, 138, 188, 55, 92, 209, 92, 71, 245], s: Scalar{
-        bytes: [198, 195, 254, 221, 249, 125, 10, 208, 109, 123, 82, 11, 187, 122, 6, 109, 189, 169, 40, 73, 97, 139, 106, 79, 2, 128, 242, 82, 150, 243, 115, 5],
-} ),
- }
-Events:
-ContractEvent { access_path: AccessPath { address: c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361, type: Resource, hash: &quot;217da6c6b3e19f1825cfb2676daecce3bf3de03cf26647c78df00b371b25cc97&quot;, suffix: &quot;/sent_events_count/&quot; } , index: 0, event_data: AccountEvent { account: f75eadda412615ef7c662f426a9750f98f2fb9bcc2662a5ae4e140c60b40cab8, amount: 50000000000 } }
-ContractEvent { access_path: AccessPath { address: f75eadda412615ef7c662f426a9750f98f2fb9bcc2662a5ae4e140c60b40cab8, type: Resource, hash: &quot;217da6c6b3e19f1825cfb2676daecce3bf3de03cf26647c78df00b371b25cc97&quot;, suffix: &quot;/received_events_count/&quot; } , index: 0, event_data: AccountEvent { account: c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361, amount: 50000000000 } }
-</code></pre>
 ]]></content>
     </entry>
 </feed>
