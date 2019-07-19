@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tdmaker.github.io/randy-blogs/</id>
     <title>性感知识，在线分享</title>
-    <updated>2019-07-19T04:45:15.437Z</updated>
+    <updated>2019-07-19T12:14:38.251Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tdmaker.github.io/randy-blogs/"/>
     <link rel="self" href="https://tdmaker.github.io/randy-blogs//atom.xml"/>
@@ -10,6 +10,120 @@
     <logo>https://tdmaker.github.io/randy-blogs//images/avatar.png</logo>
     <icon>https://tdmaker.github.io/randy-blogs//favicon.ico</icon>
     <rights>All rights reserved 2019, 性感知识，在线分享</rights>
+    <entry>
+        <title type="html"><![CDATA[数据库范式]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/database-normal-form</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/database-normal-form">
+        </link>
+        <updated>2019-07-19T11:54:46.000Z</updated>
+        <summary type="html"><![CDATA[<p>数据库范式在数据库设计中的地位一直很暧昧，教科书中对于数据库范式倒是都给出了学术性的定义，但实际应用中范式的应用却不甚乐观。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>数据库范式在数据库设计中的地位一直很暧昧，教科书中对于数据库范式倒是都给出了学术性的定义，但实际应用中范式的应用却不甚乐观。</p>
+<!-- more -->
+<blockquote>
+<p>总结自 <a href="https://www.cnblogs.com/CareySon/archive/2010/02/16/1668803.html">数据库范式那些事 - CareySon - 博客园</a></p>
+</blockquote>
+<h1 id="什么是范式">什么是范式</h1>
+<p>范式是为了消除重复数据减少冗余数据，从而让数据库内的数据更好的组织，让磁盘空间得到更有效利用的一种标准化标准，满足高等级的范式的先决条件是满足低等级范式。(比如满足2nf一定满足1nf)</p>
+<h1 id="范式的目标">范式的目标</h1>
+<p>应用数据库范式可以带来许多好处，但是最重要的好处归结为三点：</p>
+<ul>
+<li>减少数据冗余（这是最主要的好处，其他好处都是由此而附带的）；</li>
+<li>消除异常（插入异常，更新异常，删除异常）；</li>
+<li>让数据组织的更加和谐…。</li>
+</ul>
+<h1 id="范式有哪些">范式有哪些</h1>
+<h2 id="第一范式1nf">第一范式(1NF)</h2>
+<p><strong>如果一个关系模式R的所有属性都是不可分的基本数据项，则R∈1NF。</strong>
+简单的说,第一范式就是每一个属性都不可再分。不符合第一范式则不能称为关系数据库。
+*<em>字段内容不可再分。</em></p>
+<h2 id="第二范式2nf">第二范式(2NF)</h2>
+<p><strong>若关系模式R∈1NF，并且每一个非主属性都完全函数依赖于R的码，则R∈2NF</strong>
+单的说，是表中的属性必须完全依赖于全部主键，而不是部分主键.所以只有一个主键的表如果符合第一范式，那一定是第二范式。这样做的目的是进一步减少插入异常和更新异常。
+*<em>有主键的 1NF。</em></p>
+<h2 id="第三范式3nf">第三范式(3NF)</h2>
+<p><strong>关系模式R&lt;U，F&gt; 中若不存在这样的码X、属性组Y及非主属性Z（Z  Y）, 使得X→Y，Y→Z，成立，则称R&lt;U，F&gt; ∈ 3NF。</strong>
+简单的说，第三范式是为了消除数据库中关键字之间的依赖关系。
+*<em>2NF 中任意两字段不存在一一对应关系。</em></p>
+<h2 id="bc范式bcnf">BC范式(BCNF)</h2>
+<p><strong>设关系模式R&lt;U，F&gt;∈1NF，如果对于R的每个函数依赖X→Y，若Y不属于X，则X必含有候选码，那么R∈BCNF。</strong>
+简单的说，bc范式是在第三范式的基础上的一种特殊情况，既每个表中只有一个候选键（在一个数据库中每行的值都不相同，则可称为候选键）。
+*<em>3NF 中不存在第二个能用来做主键的字段。</em></p>
+<h2 id="第四范式4nf">第四范式(4NF)</h2>
+<p><strong>关系模式R&lt;U，F&gt;∈1NF，如果对于R的每个非平凡多值依赖X→→Y（Y  X），X都含有候选码，则R∈4NF。</strong>
+简单的说，第四范式是消除表中的多值依赖，也就是说可以减少维护数据一致性的工作。
+*<em>BCNF 中的某字段可能存在枚举类型的组合，将这个字段中的枚举元素抽离出形成一个新的表。</em></p>
+<h1 id="总结">总结</h1>
+<p>上面对于数据库范式进行分解的过程中不难看出，应用的范式登记越高，则表越多。表多会带来很多问题：</p>
+<ul>
+<li>查询时要连接多个表，增加了查询的复杂度</li>
+<li>查询时需要连接多个表，降低了数据库查询性能</li>
+</ul>
+<p>而现在的情况，磁盘空间成本基本可以忽略不计，所以数据冗余所造成的问题也并不是应用数据库范式的理由。
+因此，并不是应用的范式越高越好，要看实际情况而定。第三范式已经很大程度上减少了数据冗余，并且减少了造成插入异常，更新异常，和删除异常了。我个人观点认为，大多数情况应用到第三范式已经足够，在一定情况下第二范式也是可以的。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何有效提升自控力]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/how-to-effectively-improve-self-control</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/how-to-effectively-improve-self-control">
+        </link>
+        <updated>2019-07-19T04:57:46.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>间歇性踌躇满志，持续性混吃等死。</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p>间歇性踌躇满志，持续性混吃等死。</p>
+</blockquote>
+<!-- more -->
+<p>如何有效提升自己的自控力？以下几个小方法你值得拥有：</p>
+<h1 id="限制自己的选择">限制自己的选择。</h1>
+<p>想早起，就把闹钟放在房间里离床最远的地方；想避免冲动购物，去商场就不带手机不带银行卡，只带一定数额的现金；想认真工作，就直接把手机放在自己看不见的地方。通过限制自己的选择，你会更容易实现既定目标。</p>
+<h1 id="加入一个和你目标相同的群体">加入一个和你目标相同的群体。</h1>
+<p>例如早起打卡群、减肥健身群、读书分享群等。这是因为自控力会受到<strong>社会认同</strong>的影响，群体的存在能让你感到<strong>被支持</strong>；同时群体也起到了<strong>监督作用</strong>，能迫使你始终保持向目标前进的紧张感。</p>
+<h1 id="预测诱惑并提前想好应对策略">预测诱惑并提前想好应对策略。</h1>
+<p>比如减肥期间，你得先想好假如朋友叫你去撸串该怎么得体地拒绝，这样现实中真正遇到类似的情况，你就不会一时手足无措胡乱答应下来。<strong>提前对实现目标过程中的诱惑和阻力做评估，会大大降低你被意外打乱计划的可能性</strong>。</p>
+<h1 id="减少行为的变化性让每天的安排都差不多">减少行为的变化性，让每天的安排都差不多。</h1>
+<p>又拿减肥举例子，不要想着今天多吃一块肉，明天就少吃一碗米；而是应该保持每天的三餐食谱基本相同，这样才会让你更好地控制饮食。再比如高考复习的时候，不要想着今天不学习明天补回来，<strong>因为你明天还会这么想</strong>。</p>
+<h1 id="在遇到诱惑时给自己一个等待期">在遇到诱惑时给自己一个等待期。</h1>
+<p>比如在网购时，看见了特别喜欢的东西，可以把它放进购物车，然后告诉自己：“如果明天我还喜欢它，那我就把它买下来。”这样就能大大减少冲动购物的可能性。</p>
+<h1 id="对于耗时比较长的任务在你实在不想做的时候可以告诉自己坚持做10分钟然后就放弃">对于耗时比较长的任务，在你实在不想做的时候，可以告诉自己“坚持做10分钟，然后就放弃。”</h1>
+<p>但事实上很多事情只要你开始做了，就绝不会只做十分钟。这个道理尤其适用于健身和写论文。</p>
+<h1 id="给自己树立一个意志力榜样">给自己树立一个意志力榜样。</h1>
+<p>研究表明：<strong>想到自控力强的人可以增强自己的意志力</strong>。比如你可以把手机屏保设置成某个你喜欢的身材特别好的明星，没事儿就拿出来看一眼，对减肥大大的有利。</p>
+<h1 id="不要对自己太过苛刻">不要对自己太过苛刻。</h1>
+<p>每个人都有放纵自己的时候，不要因为一次的放纵而自暴自弃，人生还很长，你应该学会与自己沟通并和解。<strong>能原谅自己的人才能更好地控制自己</strong>。</p>
+<h1 id="努力让自己活得开心一点">努力让自己活得开心一点。</h1>
+<p>因为一个不快乐的人，也许会因为对未来不抱有任何期待，而在当下作出很多有风险性的举动……而如何让自己活得开心，就是另一个大命题了。至少<strong>遵从本心</strong>是最重要的。</p>
+<hr>
+<p>总而言之，在成年人的世界里，【及时享乐】或许能收获一时的快感，却并不能成为人生的终极解决方案。<strong>自律即自由，才是我们最应该明白的道理</strong>。</p>
+<blockquote>
+<p>摘自《<a href="https://mp.weixin.qq.com/s?__biz=MzU3MzEzNzI4Ng==&amp;mid=100002969&amp;idx=1&amp;sn=c2fafb9a3eed7300f2b0b51c8cae1e6e&amp;chksm=7cc704704bb08d66b6f2c2da1031847163202da89c8f147423a3dbefd28e6022505b6bd0f33f&amp;mpshare=1&amp;scene=23&amp;srcid=0901AvzrVlGp60HKh4aimoit#rd">如何有效提升自控力？这些方法也许能帮到你</a>》</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[有所思]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/maybe-my-man-is-a-brute</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/maybe-my-man-is-a-brute">
+        </link>
+        <updated>2019-07-19T04:45:33.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="有所思">有所思</h1>
+<p><em><strong>汉乐府 佚名</strong></em></p>
+<pre><code>有所思，乃在大海南。
+何用问遗君？双珠玳瑁簪。
+用玉绍缭之。
+闻君有他心，拉杂摧烧之。
+摧烧之，当风扬其灰。
+从今以往，勿复相思！相思与君绝！
+鸡鸣狗吠，兄嫂当知之。
+妃呼狶！
+秋风肃肃晨风飔，
+东方须臾高知之。
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[组织大型会议的技巧]]></title>
         <id>https://tdmaker.github.io/randy-blogs//post/tips-for-organizing-large-conferences</id>
@@ -1123,302 +1237,6 @@ END 程序结束.</p>
 <blockquote>
 <p>来自<a href="https://www.jianshu.com/p/4c85cd4d7d9b">《议事法则｜为什么 2/3 的会议都是低效或无效的？》</a></p>
 </blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[30 条编程名言佳句]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/30-tiao-bian-cheng-ming-yan-jia-ju</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/30-tiao-bian-cheng-ming-yan-jia-ju">
-        </link>
-        <updated>2019-07-05T02:57:38.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li>
-<p>生命太短暂，不要去做一些根本没有人想要的东西。——Ash Maurya</p>
-</li>
-<li>
-<p>如果你交给某人一个程序，你将折磨他一整天；如果你教某人如何编写程序，你将折磨他一辈子。——David Leinweber</p>
-</li>
-<li>
-<p>软件设计有两种方式：一种方式是，使软件过于简单，明显没有缺陷；另一种方式是，使软件过于复杂，没有明显的缺陷。——C.A.R. Hoare</p>
-</li>
-<li>
-<p>其实，我尝试着使 Ruby 更自然，而不是简单。Ruby 看起来很简单，但内部是非常复杂的，就像我们的身体一样。——松本行弘，Ruby 之父</p>
-</li>
-<li>
-<p>大部分情况下，构建程序的过程本质上是对规范调试的过程。——Fred Brooks，《人月神话》作者</p>
-</li>
-<li>
-<p>软件开发往往是这样：最开始的 90% 代码占用了开始的 90% 的开发时间；剩下 10% 代码同样需要 90% 的开发时间。——Tom Cargill</p>
-</li>
-<li>
-<p>当你试图解决一个你不理解的问题时，复杂化就产成了。——Andy Boothe</p>
-</li>
-<li>
-<p>用几个小时来制定计划，可以节省几周的编程时间。—— 匿名</p>
-</li>
-<li>
-<p>控制复杂性是计算机编程的本质。—— Brian Kernighan</p>
-</li>
-<li>
-<p>计算机科学领域的所有问题都可以通过其他方式间接解决。——David Wheeler</p>
-</li>
-<li>
-<p>编程是两队人马在竞争：软件工程师努力设计出最大最好的连白痴都会使用的程序；而宇宙在拼命制造最大最好的白痴。到目前为止，宇宙是胜利者。—— Rick Cook</p>
-</li>
-<li>
-<p>调试一个初次见到的代码比重写代码要困难两倍。因此，按照定义，如果你写代码非常巧妙，那么没有人足够聪明来调试它。—— Brian W. Kernighan</p>
-</li>
-<li>
-<p>我不是一个伟大的程序员，我只是一个具有良好习惯的优秀程序员。― Kent Beck</p>
-</li>
-<li>
-<p>你们中大多数人都熟悉程序员的美德，有三种：那就是懒惰、急躁和傲慢。- Larry Wall，Perl 語言发明人</p>
-</li>
-<li>
-<p>任何一个傻瓜都会写能够让机器理解的代码，只有好的程序员才能写出人类可以理解的代码。——Martin Fowler</p>
-</li>
-<li>
-<p>靠代码行数来衡量开发进度，就像是凭重量来衡量飞机制造的进度。——比尔·盖茨</p>
-</li>
-<li>
-<p>这不是一个 bug，这只是一个未列出来的特性。——匿名</p>
-</li>
-<li>
-<p>作为一个程序员，郁闷的事情是，面对一个代码块，却不敢去修改。更糟糕的是，这个代码块还是自己写的。—— Peyton Jones</p>
-</li>
-<li>
-<p>它在我的机器上可以很好运行！——大部分程序员</p>
-</li>
-<li>
-<p>能说算不上什么，有本事就把你的代码给我看看。——Linus Torvalds，Linux 之父</p>
-</li>
-<li>
-<p>我认为对象就像是生物学里的细胞，或者网络中的一台计算机，只能够通过消息来通信——Alan Kay，Smalltalk 的发明人，面向对象之父</p>
-</li>
-<li>
-<p>当你选择了一种语言，意味着你还选择了一组技术、一个社区。——Joshua Bloch</p>
-</li>
-<li>
-<p>质量、速度、廉价，选择其中两个。——匿名</p>
-</li>
-<li>
-<p>过早的优化是罪恶之源。——Donald Knuth</p>
-</li>
-<li>
-<p>没有什么代码的执行速度比空代码更快。——Merb 核心原则</p>
-</li>
-<li>
-<p>如果你是房间里最聪明的人，那么你走错房间了。——匿名</p>
-</li>
-<li>
-<p>如果只需更改一个单一的代码行，你的部门需要花费多长时间？——Mary Poppendieck</p>
-</li>
-<li>
-<p>九个人不能让一个孩子在一个月内出生。——Fred Brooks，《人月神话》作者</p>
-</li>
-<li>
-<p>好代码本身就是最好的文档。当你需要添加一个注释时，你应该考虑如何修改代码才能不需要注释。——Steve McConnell，Code Complete 作者</p>
-</li>
-<li>
-<p>一个人在教会电脑之前，别说他真正理解这个东西了。——Donald Knuth</p>
-</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[对于医疗项目框架的讲述——前端部分]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/an-explanation-of-medical-frameworks</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/an-explanation-of-medical-frameworks">
-        </link>
-        <updated>2019-06-26T05:54:00.000Z</updated>
-        <summary type="html"><![CDATA[<blockquote>
-<p><em>只讲组织结构和如何使用，如何实现可以看源码。不涉及怎样使用 Angular 以及其他相关技术</em></p>
-</blockquote>
-]]></summary>
-        <content type="html"><![CDATA[<blockquote>
-<p><em>只讲组织结构和如何使用，如何实现可以看源码。不涉及怎样使用 Angular 以及其他相关技术</em></p>
-</blockquote>
-<!--more-->
-<h2 id="目录结构">目录结构</h2>
-<ul>
-<li>path-to-your-project/src/app/components：存储我定义的一些<strong>可复用组件</strong>，作用根据名称一目了然；</li>
-<li>path-to-your-project/src/app/container：存储网站主<strong>业务框架</strong>；</li>
-<li>path-to-your-project/src/app/components：存储我定义的一些可复用的<strong>指令</strong>；</li>
-<li>path-to-your-project/src/app/interceptors：存储我定义的一些<strong>拦截器</strong>；</li>
-<li>path-to-your-project/src/app/interfaces：存储我定义的一些<strong>接口</strong>；</li>
-<li>path-to-your-project/src/app/pipes：存储我定义的一些<strong>管道</strong>；</li>
-<li>path-to-your-project/src/app/service：存储我定义的一些<strong>服务</strong>；</li>
-<li>path-to-your-project/src/app/utils：存储我定义的一些<strong>杂项</strong>；</li>
-<li>path-to-your-project/src/app/views：存储我定义的一些<strong>视图组件</strong>。</li>
-</ul>
-<h2 id="界面部分">界面部分</h2>
-<ul>
-<li>
-<h3 id="左侧导航菜单">左侧导航菜单</h3>
-全功能列表存在如下文件中：
-<em><strong>path-to-your-project/src/app/_nav.ts</strong></em>
-TIPS：
-<ul>
-<li>与原框架相比，<code>NavData</code> 接口增加 <code>pcode?: string;</code>，<code>pcode</code> 对应于后台权限表中的某个权限的权限代码，登录时后台会以正则表达式字面量的形式返回当前用户所具有的所有权限，我会 test 这个 RegExp 与这些 pcode，true 则添加。如果某元素不含有 <code>pcode</code> 这个 property，则默认添加；</li>
-<li>只支持一层 <code>children</code> 嵌套，更深层次的嵌套不被解析；</li>
-<li><code>icon</code> 这个 property 是定义导航 item 的左侧图标的，原模板已经引入了一些图标，我有根据具体功能，新引入了几个阿里出品的开源图标，可根据具体业务功能类型添加。</li>
-</ul>
-</li>
-<li>
-<h3 id="主区域-tab-页">主区域 TAB 页</h3>
-Tab 页单击选中，双击关闭，Tab头可拖动，Tab 页最少会留一个“新标签页”。</li>
-</ul>
-<h2 id="路由设置">路由设置</h2>
-<p><em><strong>path-to-your-project/src/app/app.routing.ts</strong></em></p>
-<pre><code>...
-children: [
-      {
-        path: 'new-tab',
-        component: NewTabComponent,
-        data: {
-          title: '新标签页',
-          cid: '041FF088415C6BBF458F9475FEE79986'
-        }
-      },
-      {
-        path: 'system',
-        canLoad: [CanLoadGuard],
-        data: {pcode: '001'},
-        loadChildren: () =&gt; import('./views/system/system.module').then(m =&gt; m.SystemModule)
-      }
-    ]
-...
-</code></pre>
-<p><em><strong>path-to-your-project/app/views/system/system-routing.module.ts</strong></em></p>
-<pre><code>...
-children: [
-    {
-      path: 'people',
-      component: PeopleComponent,
-      data: {
-        title: '自然人管理',
-        cid: '88C9EF4BD6306E26D3D2DA01FC2BB0FE',
-        pcode: '001001',
-        reuse: true
-      }
-    }]
-...
-</code></pre>
-<h2 id="我写的一些公共功能的使用">我写的一些公共功能的使用</h2>
-<p><strong>基本上都可以在“自然人管理”这个例子下找到使用方法（要使用，先引入相关模块）</strong></p>
-<ul>
-<li><strong>datatable</strong> 是一个组件，相关设置通过属性传值，组件选择器与接口格式如下：
-<em><strong>path-to-your-project/src/app/views/system/people/people.component.html</strong></em></li>
-</ul>
-<pre><code class="language-html">&lt;app-rd-datatable #tb [rdTHead]=&quot;thead&quot; [rdTbConfig]=&quot;tbConfig&quot; (selectedRows)=&quot;setSelectedRows($event)&quot;&gt;&lt;/app-rd-datatable&gt;
-</code></pre>
-<p><em><strong>path-to-your-project/src/app/views/system/people/people.component.ts</strong></em></p>
-<pre><code class="language-typescript">thead: Array&lt;Array&lt;RdDatatableThTd&gt;&gt; = [
-    [
-      {content: '姓名', style: {width: '15%'}},
-      {content: '性别', style: {width: '10%'}},
-      {content: '电话', style: {width: '15%'}},
-      {content: '电子邮件', style: {width: '20%'}},
-      {content: '身份证', style: {width: '25%'}},
-      {content: '是否冻结', style: {width: '15%'}}
-    ]
-  ];
-  tbConfig: RdDatatableConf = {
-    url: 'system/people',
-    hasCheckBox: true,
-    rowsPrefetch: 100,
-    rowsPerPage: 5,
-    rowsTimes: [1, 2, 4, 6]
-  };
-</code></pre>
-<ul>
-<li><strong>datalist-validator</strong> 是一个指令，当表单中有长列表形式的域需要校验时，往往可以用到这个指令，如：
-<em><strong>path-to-your-project/src/app/views/system/people/people.component.html</strong></em></li>
-</ul>
-<pre><code class="language-html">&lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;country&quot; list=&quot;psy&quot; formControlName=&quot;country&quot; placeholder=&quot;请选择国家&quot; [appRdDatalist]=&quot;countrys4V&quot;/&gt;
-</code></pre>
-<p><em><strong>path-to-your-project/src/app/views/system/people/people.component.ts</strong></em></p>
-<pre><code class="language-typescript">this.countrys4V = this.countrys.map(e =&gt; e.countryName);
-</code></pre>
-<ul>
-<li><strong>http-interceptor</strong> 现在里面写了做四种功能的拦截，仅仅是提一下：
-<ul>
-<li>多线路选择与格式化请求的 URL ；</li>
-<li>填充必要 HEADERS；</li>
-<li>会话超时提示用户重新登录；</li>
-<li>打印请求日志；</li>
-<li>(TODO) 本地数据源代理。</li>
-</ul>
-</li>
-<li><strong>interfaces</strong> 里写了一堆接口，根据名字很容易看出功能。</li>
-<li><strong>pipes</strong> 里写了一个管道，用来在 datatable 显示的时候，自动加入 checkbox 使用。</li>
-<li><strong>utils</strong> 里写了两个 snippets，一个用于依赖注入的 Token 用于在请求拦截器里依赖注入备选URL数组，全局配置信息和响应式表单校验器。</li>
-<li><strong>login</strong> 登录页的表单是用了模板驱动表单，另外还有上面提到的响应式表单（自然人管理里用到）有示例。</li>
-<li><strong>services</strong> 一般都是根注入，这些都是类注入，关于非类注入，上面有一个全局配置信息的对象注入：
-<ul>
-<li><strong>can-load.guard</strong> 路由守卫，在上面配置路由时出现过，根据用户权限，判断应否 load 某模块，这只是其中一个守卫，另外还应有判断应否 Active 等的守卫；</li>
-<li><strong>rd-auth.service</strong>判断权限使用，包括判断用户是否登录和是否具有其试图触发路由的权限；</li>
-<li><strong>rd-browser-storage.service</strong> 根据 Angular 预置 Token，使用的是 LocalStorage 方式的存储，现在存了选举出的URL、用户权限正则字面量和用户是否登录。</li>
-<li><strong>rd-http.service</strong> 原则支持 RESTful，支持超时、重试、防抖等功能。支持带状态反馈的文件上传功能。</li>
-<li><strong>rd-message.service</strong> 一个简单日志打印服务，可扩充至复杂日志系统。</li>
-<li><strong>rd-modal.service</strong> Modal 功能，使用方法如下：</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-typescript">...
-this.rdModal.onHidden().subscribe(reason =&gt; {
-  switch (reason) {
-    case 'secondLogin':
-      this.login(true);
-      break;
-    case 'loginFailed':
-      this.formData.password = '';
-      break;
-  }
-});
-...
-const modalOptions = {
-  animated: true,
-  initialState: {
-    title: '用户登录提示',
-    content: '此用户已在别处登录，继续登录会将其踢下线，是否继续？',
-    btnSecondary: '否',
-    btnPrimary: '是',
-    reasonPositive: 'secondLogin',
-    type: 'danger'
-  },
-  class: 'modal-danger'
-};
-this.rdModal.show(modalOptions);
-...
-</code></pre>
-<ul>
-<li><strong>rd-reuse-strategy</strong> 路由策略</li>
-<li><strong>rd-ws.service</strong> WebSocket
-<ul>
-<li>支持重连；</li>
-<li>支持心跳；</li>
-<li>支持恶意请求或超时时的策略；</li>
-</ul>
-</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Nginx 实现负载均衡有三种策略]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/three-way-of-nginx-for-load-balancing</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/three-way-of-nginx-for-load-balancing">
-        </link>
-        <updated>2019-06-26T01:42:06.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li><strong>轮询调度算法（Round-Robin）</strong>
-轮询调度算法的原理，就是是把用户的请求按照顺序的轮流分配给app server，不断循环。</li>
-<li><strong>最少连接（least-connected）</strong>
-Nginx 会找出最少的连接的服务器出来，把用户的请求分配到该台app server。</li>
-<li><strong>IP散列算法（ip-hash）</strong>
-根据用户请求的IP，通过散列算法把请求分配到不同的服务器上。
-IP-HASH 和 session 同步有关，这个算法的大致原理就是，根据请求的目标IP地址，作为散列键从静态分配的散列表找出对应的服务器，然后根据这台服务器的负载能力进行转发。</li>
-</ul>
 ]]></content>
     </entry>
 </feed>

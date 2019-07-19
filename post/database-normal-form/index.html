@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>数据库范式 | 性感知识，在线分享</title>
+<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563538476081">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tdmaker.github.io/randy-blogs//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://tdmaker.github.io/randy-blogs/">
+  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563538476081" alt="">
+  </a>
+  <h1 class="site-title">
+    性感知识，在线分享
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/randy-blogs/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              数据库范式
+            </h2>
+            <div class="post-info">
+              <time class="post-time">
+                · 2019-07-19 ·
+              </time>
+              
+                <a href="https://tdmaker.github.io/randy-blogs//tag/little-tips-about-cs" class="post-tag">
+                  # 技术小知识点
+                </a>
+              
+            </div>
+            
+            <div class="post-content">
+              <p>数据库范式在数据库设计中的地位一直很暧昧，教科书中对于数据库范式倒是都给出了学术性的定义，但实际应用中范式的应用却不甚乐观。</p>
+<!-- more -->
+<blockquote>
+<p>总结自 <a href="https://www.cnblogs.com/CareySon/archive/2010/02/16/1668803.html">数据库范式那些事 - CareySon - 博客园</a></p>
+</blockquote>
+<h1 id="什么是范式">什么是范式</h1>
+<p>范式是为了消除重复数据减少冗余数据，从而让数据库内的数据更好的组织，让磁盘空间得到更有效利用的一种标准化标准，满足高等级的范式的先决条件是满足低等级范式。(比如满足2nf一定满足1nf)</p>
+<h1 id="范式的目标">范式的目标</h1>
+<p>应用数据库范式可以带来许多好处，但是最重要的好处归结为三点：</p>
+<ul>
+<li>减少数据冗余（这是最主要的好处，其他好处都是由此而附带的）；</li>
+<li>消除异常（插入异常，更新异常，删除异常）；</li>
+<li>让数据组织的更加和谐…。</li>
+</ul>
+<h1 id="范式有哪些">范式有哪些</h1>
+<h2 id="第一范式1nf">第一范式(1NF)</h2>
+<p><strong>如果一个关系模式R的所有属性都是不可分的基本数据项，则R∈1NF。</strong>
+简单的说,第一范式就是每一个属性都不可再分。不符合第一范式则不能称为关系数据库。
+*<em>字段内容不可再分。</em></p>
+<h2 id="第二范式2nf">第二范式(2NF)</h2>
+<p><strong>若关系模式R∈1NF，并且每一个非主属性都完全函数依赖于R的码，则R∈2NF</strong>
+单的说，是表中的属性必须完全依赖于全部主键，而不是部分主键.所以只有一个主键的表如果符合第一范式，那一定是第二范式。这样做的目的是进一步减少插入异常和更新异常。
+*<em>有主键的 1NF。</em></p>
+<h2 id="第三范式3nf">第三范式(3NF)</h2>
+<p><strong>关系模式R&lt;U，F&gt; 中若不存在这样的码X、属性组Y及非主属性Z（Z  Y）, 使得X→Y，Y→Z，成立，则称R&lt;U，F&gt; ∈ 3NF。</strong>
+简单的说，第三范式是为了消除数据库中关键字之间的依赖关系。
+*<em>2NF 中任意两字段不存在一一对应关系。</em></p>
+<h2 id="bc范式bcnf">BC范式(BCNF)</h2>
+<p><strong>设关系模式R&lt;U，F&gt;∈1NF，如果对于R的每个函数依赖X→Y，若Y不属于X，则X必含有候选码，那么R∈BCNF。</strong>
+简单的说，bc范式是在第三范式的基础上的一种特殊情况，既每个表中只有一个候选键（在一个数据库中每行的值都不相同，则可称为候选键）。
+*<em>3NF 中不存在第二个能用来做主键的字段。</em></p>
+<h2 id="第四范式4nf">第四范式(4NF)</h2>
+<p><strong>关系模式R&lt;U，F&gt;∈1NF，如果对于R的每个非平凡多值依赖X→→Y（Y  X），X都含有候选码，则R∈4NF。</strong>
+简单的说，第四范式是消除表中的多值依赖，也就是说可以减少维护数据一致性的工作。
+*<em>BCNF 中的某字段可能存在枚举类型的组合，将这个字段中的枚举元素抽离出形成一个新的表。</em></p>
+<h1 id="总结">总结</h1>
+<p>上面对于数据库范式进行分解的过程中不难看出，应用的范式登记越高，则表越多。表多会带来很多问题：</p>
+<ul>
+<li>查询时要连接多个表，增加了查询的复杂度</li>
+<li>查询时需要连接多个表，降低了数据库查询性能</li>
+</ul>
+<p>而现在的情况，磁盘空间成本基本可以忽略不计，所以数据冗余所造成的问题也并不是应用数据库范式的理由。
+因此，并不是应用的范式越高越好，要看实际情况而定。第三范式已经很大程度上减少了数据冗余，并且减少了造成插入异常，更新异常，和删除异常了。我个人观点认为，大多数情况应用到第三范式已经足够，在一定情况下第二范式也是可以的。</p>
+
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://tdmaker.github.io/randy-blogs//post/how-to-effectively-improve-self-control">
+              <h3 class="post-title">
+                如何有效提升自控力
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://tdmaker.github.io/randy-blogs//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
