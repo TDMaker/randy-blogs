@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tdmaker.github.io/randy-blogs/</id>
     <title>性感知识，在线分享</title>
-    <updated>2019-07-19T12:14:38.251Z</updated>
+    <updated>2019-07-20T03:04:32.270Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tdmaker.github.io/randy-blogs/"/>
     <link rel="self" href="https://tdmaker.github.io/randy-blogs//atom.xml"/>
@@ -10,6 +10,65 @@
     <logo>https://tdmaker.github.io/randy-blogs//images/avatar.png</logo>
     <icon>https://tdmaker.github.io/randy-blogs//favicon.ico</icon>
     <rights>All rights reserved 2019, 性感知识，在线分享</rights>
+    <entry>
+        <title type="html"><![CDATA[四种常见的 POST 提交数据方式]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/four-common-post-submission-methods</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/four-common-post-submission-methods">
+        </link>
+        <updated>2019-07-20T02:39:59.000Z</updated>
+        <content type="html"><![CDATA[<p>协议规定 POST 提交的数据必须放在消息主体（entity-body）中，但协议并没有规定数据必须使用什么编码方式。实际上，开发者完全可以自己决定消息主体的格式，只要最后发送的 HTTP 请求满足上面的格式就可以。但是，数据发送出去，还要服务端解析成功才有意义。服务端通常是根据请求头（headers）中的 Content-Type 字段来获知请求中的消息主体是用何种方式编码，再对主体进行解析。所以说到 POST 提交数据方案，包含了 Content-Type 和消息主体编码方式两部分。</p>
+<h1 id="applicationx-www-form-urlencoded">application/x-www-form-urlencoded</h1>
+<p>这应该是最常见的 POST 提交数据的方式了。浏览器的原生 <code>form</code> 表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据。请求类似于下面这样（无关的请求头在本文中都省略掉了）：</p>
+<pre><code>POST http://www.example.com HTTP/1.1
+Content-Type: application/x-www-form-urlencoded;charset=utf-8
+
+title=test&amp;sub%5B%5D=1&amp;sub%5B%5D=2&amp;sub%5B%5D=3
+</code></pre>
+<p>首先，<code>Content-Type</code> 被指定为 <code>application/x-www-form-urlencoded</code>；其次，提交的数据按照 <code>key1=val1&amp;key2=val2</code> 的方式进行编码，<code>key</code> 和 <code>val</code> 都进行了 URL 转码。大部分服务端语言都对这种方式有很好的支持。很多时候，我们用 Ajax 提交数据时，也是使用这种方式。例如 <code>JQuery</code> 和 <code>QWrap</code> 的 Ajax，<code>Content-Type</code> 默认值都是「<code>application/x-www-form-urlencoded;charset=utf-8</code>」。</p>
+<h1 id="multipartform-data">multipart/form-data</h1>
+<p>这又是一个常见的 POST 数据提交的方式。我们使用表单上传文件时，必须让 <code>form</code> 表单的 enctype 等于 <code>multipart/form-data</code>。直接来看一个请求示例：</p>
+<pre><code>POST http://www.example.com HTTP/1.1
+Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryrGKCBY7qhFd3TrwA
+
+------WebKitFormBoundaryrGKCBY7qhFd3TrwA
+Content-Disposition: form-data; name=&quot;text&quot;
+
+title
+------WebKitFormBoundaryrGKCBY7qhFd3TrwA
+Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;chrome.png&quot;
+Content-Type: image/png
+
+PNG ... content of chrome.png ...
+------WebKitFormBoundaryrGKCBY7qhFd3TrwA--
+</code></pre>
+<p>首先生成了一个 <code>boundary</code> 用于分割不同的字段，为了避免与正文内容重复，<code>boundary</code> 很长很复杂。然后 <code>Content-Type</code> 里指明了数据是以 <code>multipart/form-data</code> 来编码，本次请求的 <code>boundary</code> 是什么内容。消息主体里按照字段个数又分为多个结构类似的部分，每部分都是以 <code>--boundary</code> 开始，紧接着是内容描述信息，然后是回车，最后是字段具体内容（文本或二进制）。如果传输的是文件，还要包含文件名和文件类型信息。消息主体最后以 <code>--boundary--</code> 标示结束。关于 <code>multipart/form-data</code> 的详细定义，请前往 <a href="https://www.ietf.org/rfc/rfc1867.txt">rfc1867</a> 查看。</p>
+<p>这种方式一般用来上传文件，各大服务端语言对它也有着良好的支持。</p>
+<p>上面提到的这两种 <code>POST</code> 数据的方式，都是浏览器原生支持的，而且现阶段标准中原生 <code>form</code> 表单也只支持这两种方式（通过 <code>form</code> 元素的 <code>enctype</code> 属性指定，默认为 <code>application/x-www-form-urlencoded</code>。其实 <code>enctype</code> 还支持 <code>text/plain</code>，不过用得非常少）。</p>
+<p>随着越来越多的 Web 站点，尤其是 WebApp，全部使用 Ajax 进行数据交互之后，我们完全可以定义新的数据提交方式，给开发带来更多便利。</p>
+<h1 id="applicationjson">application/json</h1>
+<p><code>application/json</code> 这个 <code>Content-Type</code> 作为响应头大家肯定不陌生。实际上，现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串。由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持 <code>JSON.stringify</code>，服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。
+这种方案，可以方便的提交复杂的结构化数据，特别适合 RESTful 的接口。各大抓包工具如 Chrome 自带的开发者工具、Firebug、Fiddler，都会以树形结构展示 JSON 数据，非常友好。但也有些服务端语言还没有支持这种方式。</p>
+<h1 id="textxml">text/xml</h1>
+<p>它是一种使用 HTTP 作为传输协议，XML 作为编码方式的远程调用规范。典型的 XML-RPC 请求是这样的：</p>
+<pre><code>POST http://www.example.com HTTP/1.1 
+Content-Type: text/xml
+
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;methodCall&gt;
+    &lt;methodName&gt;examples.getStateName&lt;/methodName&gt;
+    &lt;params&gt;
+        &lt;param&gt;
+            &lt;value&gt;&lt;i4&gt;41&lt;/i4&gt;&lt;/value&gt;
+        &lt;/param&gt;
+    &lt;/params&gt;
+&lt;/methodCall&gt;
+</code></pre>
+<p><code>XML-RPC</code> 协议简单、功能够用，各种语言的实现都有。它的使用也很广泛，如 <code>WordPress</code> 的 <code>XML-RPC Api</code>，搜索引擎的 ping 服务等等。<code>JavaScript</code> 中，也有现成的库支持以这种方式进行数据交互，能很好的支持已有的 <code>XML-RPC</code> 服务。</p>
+<blockquote>
+<p>Referred <a href="https://imququ.com/post/four-ways-to-post-data-in-http.html">四种常见的 POST 提交数据方式 | JerryQu 的小站</a></p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[数据库范式]]></title>
         <id>https://tdmaker.github.io/randy-blogs//post/database-normal-form</id>
@@ -1177,65 +1236,6 @@ END 程序结束.</p>
 大意：天地无所偏私，任凭万物自生自灭；圣人无所偏爱，任凭百姓自作自息。</p>
 <blockquote>
 <p>《道德经》经典25句，你都知道什么意思吗？</p>
-</blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[为什么 2/3 的会议都是低效或无效的？]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/why-2-of-3-meetings-are-inefficient-or-ineffective</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/why-2-of-3-meetings-are-inefficient-or-ineffective">
-        </link>
-        <updated>2019-07-12T01:56:04.000Z</updated>
-        <summary type="html"><![CDATA[<p><strong>会议是在公司内部用来传递、沟通信息以及达成决策的工具</strong>。越是高层级的管理者，在会议上花的时间越多。哈佛商学院做了个统计，每周管理者要花18小时以上(1/3的时间)在会议上，但是，众多的会议并未达到预期的目的，25-50%的会议时间被认为是在浪费时间。人们对开会怨声载道，认为开会是浪费时间。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><strong>会议是在公司内部用来传递、沟通信息以及达成决策的工具</strong>。越是高层级的管理者，在会议上花的时间越多。哈佛商学院做了个统计，每周管理者要花18小时以上(1/3的时间)在会议上，但是，众多的会议并未达到预期的目的，25-50%的会议时间被认为是在浪费时间。人们对开会怨声载道，认为开会是浪费时间。</p>
- <!-- more -->
-<p><strong>能否开好会议，是高效管理者和普通管理者之间的区别</strong>。</p>
-<p>因为会议决定了你的执行效率。那我们一起来看看如何能开好一场会议。</p>
-<p>给大家举个例子，产品部的小李在吃过午饭后接到了会议通知，这个通知提到了下午2点在二楼会议室开会。</p>
-<p>小李准时前来开会，看到许多同事都已经在了，包括市场、财务、开发部门的同事。于是小李就问大家这次会议开什么内容，大家都面面相觑，说都是刚刚接到通知。不一会，业务部的负责人张总来了，说召集大家讨论一下这一批产品上市后用户的反馈和应对，然后花了半小时介绍了目前事情的背景和情况。经过一下午的讨论，大家从各自的角度出发提出了很多观点。会议结束了，第二天小李继续着手进行了原来的工作，前一天的会议内容就被她抛之脑后了。这是一个非常常见的会议的情形。我们一起来看看这场会议存在哪些问题，还有哪些地方值得提升。</p>
-<p>第一个严重的误区和问题，也是多数会议都会有的通病：
-如果我们开个一小时的会议，从下午1点到2点。这个会议所用的时间资源，也就是所谓会议时长，是一小时。但是这个会议所覆盖的时间周期可不止一小时。</p>
-<p>如果想要一个会议有成效，我们必须要关注到<strong>会议前</strong>与<strong>会议后</strong>的这两个重要时间段：</p>
-<h1 id="会议前">会议前</h1>
-<p>我们需要做什么?创办人想要创办一个好的会议，在时间条件允许的情况下，要提前24小时给参会人员发出会议的通告，要告诉与会者这次会议的：</p>
-<ol>
-<li>目的</li>
-<li>时间、地点</li>
-<li>需要阅读的材料和要准备的信息</li>
-</ol>
-<p>会议是一个特别耗费时间的活动。例如一个一小时的会议，如果有八个人来参加，那么这场会议不仅仅耗费了参会人员一小时的时间，还等同于耗费了公司八个小时的生产力。因此，对于一个团队和公司来说，<strong>开好一场会议的前提是会议的内容需要集体来交流以及做决策</strong>。</p>
-<p>如果一场会议的目的仅仅是让参会人了解信息，像这种可以个人完成的任务，就没必要放在会议上解决了，这是许多会议都会出现的问题。参会人往往在进入会议室之前对本次会议的内容一无所知，以至于一场会议需要占用大量的时间来跟参会人普及背景信息知识。</p>
-<p>其实，<strong>普及背景信息这项工作可以在会议前做</strong>，就是把相关信息发给即将参会的人员，让他们利用好各自的时间来了解这次会议的内容。只有在参会人充分准备的情况下，大家才能在会议的现场有效地交流、做决策，以及最终达成一致的结果。只有这样，会议才会变得高效。</p>
-<h1 id="会议后">会议后</h1>
-<p>当会议开完，会议门被关上的那一刹那，并不代表这场会议的结束，而只是进展了一半，因为会议上达成的决议还没有开始被大家执行。</p>
-<p>因此，<strong>每场会议后都要得出清晰的会议纪要，明确要达成的目标和要完成的具体任务，以及任务的执行者和完成的时间</strong>。</p>
-<p>这样的会议纪要要在会议后24小时发给与会人员，并要求相应的与会人员在确定的时间点对会议所要求的事情给予进展的反馈。那么，这样的会议才算是画了完整的句号的会议。</p>
-<p>对于一场会议来说，重要的不仅是会议的成功举办，还要求会议是高效的，并且一定要关注会议前与会议后所要做的事情。<strong>除了需要注意会前和会后，会议的举办现场，也需要注意一些重要的事项</strong>。</p>
-<h2 id="首先每一场会议一定要有一个明确的发起者或者叫做决策者">首先，每一场会议一定要有一个明确的发起者，或者叫做决策者。</h2>
-<p>在一场会议当中，如果没有决策者和最终的负责人，这场会议就会变成一场漫无目的的空谈和讨论。因为<strong>会议的目的是做出一个决策，以及行动计划</strong>。即便这项决策可能不是最完美的，但这项决策需要有人来拍板。有时候在一场两个部门之间的会议中，如果没有一个更高层的角色来参与时，这样的会议很容易让大家都以妥协来收场。</p>
-<h2 id="第二在会的时间观念包括参会一定要守时">第二，在会的时间观念包括参会一定要守时。</h2>
-<p>在会议过程中，对于时间的把控要非常的严格。在很多情况下，参会人员会觉得这场会议已经没有要继续进行的意义了，但是没有人宣布会议的结束，所以参会人还得在这场会议中继续浪费时间。所以，<strong>主持人需要能够把握会议的议程</strong>。</p>
-<p>一般来说，一个会议的议程可以包括以下几个步骤：</p>
-<ul>
-<li>表明目的</li>
-<li>介绍简要的背景</li>
-<li>提供决策信息</li>
-<li>表达观点</li>
-<li>达成一致</li>
-</ul>
-<p>在会议的讨论过程当中，要确保每一位角色都能发表各自的观点，如果你发现某些角色，在整场会议中不需要发表观点，或是从来都不发表观点，那么这样的角色未来可能就不需要参与这样的会议了。</p>
-<h2 id="第三杜绝在会议当中的小会议和子会议">第三，杜绝在会议当中的小会议和子会议。</h2>
-<p>每个人讨论的观点都应该让所有人听到，要杜绝他们与身边的人进行交头接耳沟通的情况。有时候一场会议会引申出一些新的议题。那这个时候，会议的管理者需要意识到这些问题可能会用一场新的会议来解决，而不应该在这场会议中进行讨论解决。</p>
-<h2 id="第四要严格控制会议的规模">第四，要严格控制会议的规模。</h2>
-<p>通常要求便于管理即可，一般与会者最好不要超过八个人，十个人是上限。</p>
-<p>在会议的过程当中，尽量保留用于放幻灯片以及用于做记录的电脑。如果一些人员带着电脑来参会，这将是一个非常低效的行为，因为经常需要把这些人员重新拉回讨论现场。另外<strong>微信也是会议效率的杀手</strong>，除非有非常要紧的事，或者客户急需解决问题。否则，一边开会一边浏览手机将是非常低效的。</p>
-<p><strong>对于参会人来说，要学会说不</strong>。如果觉得这个会议确实不用参与，参会人可以拒绝，而不用勉强去参加一场全程都很讨厌的会。</p>
-<p>成员对于会议的决策可以在会议现场提出不同的意见。但是一旦达成一致，哪怕你有保留意见，也要百分之百的完全执行。</p>
-<p>有些公司或团队采用站立式开会的方式也是一种不错的选择，至少这样的会议不会开得很长。</p>
-<p><strong>下次开会的时候，检查一下这些点。一个好的团队管理者，一定是关注细节的</strong>。</p>
-<blockquote>
-<p>来自<a href="https://www.jianshu.com/p/4c85cd4d7d9b">《议事法则｜为什么 2/3 的会议都是低效或无效的？》</a></p>
 </blockquote>
 ]]></content>
     </entry>
