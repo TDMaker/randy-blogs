@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Facebook 虚拟货币 Libra 尝鲜 | 性感知识，在线分享</title>
-<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563591869587">
+<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563761291910">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://tdmaker.github.io/randy-blogs//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://tdmaker.github.io/randy-blogs/">
-  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563591869587" alt="">
+  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563761291910" alt="">
   </a>
   <h1 class="site-title">
     性感知识，在线分享
@@ -104,7 +104,7 @@ $./scripts/dev_setup.sh
 </ol>
 <pre><code class="language-bash">$./scripts/cli/start_cli_testnet.sh
 </code></pre>
-<p>这条命令会编译客户端，并把客户端连接到 Libra 测试网络中的验证节点上。
+<p>这条命令会编译客户端，并把客户端连接到 Libra 测试网络中的验证节点上。<br>
 连接成功后，会看到这些输出信息：</p>
 <pre><code class="language-bash">usage: &lt;command&gt; &lt;args&gt;
 Use the following commands:
@@ -129,7 +129,7 @@ libra%
 &gt;&gt; Creating/retrieving next account from wallet
 Created/retrieved account #0 address c67ba7dce978ede151ed21f926a04733805dc7a0ba8d3c2f2569cc8fb11d0361
 </code></pre>
-<p>address 后面的一长串字符就是你创建的账户地址，别人给你转账时需要填写这个地址。前面的 #0 是这个账户地址的本地编号，只是为了方便在本地操作账户，在区块链上没有意义。
+<p>address 后面的一长串字符就是你创建的账户地址，别人给你转账时需要填写这个地址。前面的 #0 是这个账户地址的本地编号，只是为了方便在本地操作账户，在区块链上没有意义。<br>
 我们现在创建的这个账户暂时还只在本地，并没有出现在区块链上，只有以下两种情况发生之后，才会真正在区块链上创建这个账户：</p>
 <ol>
 <li>这个账户被铸币（mint），在测试网络上我们可以随意给账户里打钱，而 Libra 网络真正运行起来之后，这个环节应该类似充值，就是用法币兑换 Libra 币充到自己账户内。</li>
@@ -161,7 +161,7 @@ Mint request submitted
 Transaction submitted to validator
 To query for transaction status, run: query txn_acc_seq 0 0 &lt;fetch_events=true|false&gt;
 </code></pre>
-<p>意思是转账交易已经提交给验证节点了，但这里多说一点细节，就是此时理论上只能认为转账信息已经提交到节点，但不保证已经被执行，按我的理解，就像你寄出的快递已经被快递小哥收走，但具体送到哪儿了，还得随时用快递单号查询。（把 transfer 换成 transferb 可以实时看到转账是否已经提交到区块链，这两个命令分别相当于异步转账和同步转账）
+<p>意思是转账交易已经提交给验证节点了，但这里多说一点细节，就是此时理论上只能认为转账信息已经提交到节点，但不保证已经被执行，按我的理解，就像你寄出的快递已经被快递小哥收走，但具体送到哪儿了，还得随时用快递单号查询。（把 transfer 换成 transferb 可以实时看到转账是否已经提交到区块链，这两个命令分别相当于异步转账和同步转账）<br>
 8. 查询转账状态</p>
 <pre><code class="language-bash">libra% query txn_acc_seq 0 0 true
 &gt;&gt; Getting committed transaction by account and sequence number

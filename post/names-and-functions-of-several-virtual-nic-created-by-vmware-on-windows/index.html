@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Windows 下 Vmware 虚拟出的几个网卡设备及其作用 | 性感知识，在线分享</title>
-<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563591869587">
+<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563761291910">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://tdmaker.github.io/randy-blogs//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://tdmaker.github.io/randy-blogs/">
-  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563591869587" alt="">
+  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563761291910" alt="">
   </a>
   <h1 class="site-title">
     性感知识，在线分享
@@ -98,10 +98,10 @@
 </ul>
 <h3 id="桥接和-nat-的区别">桥接和 NAT 的区别：</h3>
 <ul>
-<li><strong>桥接</strong>：就是通过一台设备（可能不止一个）把几个网络串起来形成的连接。
+<li><strong>桥接</strong>：就是通过一台设备（可能不止一个）把几个网络串起来形成的连接。<br>
 <em><strong>数据流向</strong></em>：虚拟机系统-&gt;真实网卡-&gt;路由器-&gt;真实网卡-&gt;实体机系统。</li>
-<li><strong>NAT模式</strong>： 实际是虚拟了一个网卡出来，虚拟机直接使用链接这个虚拟网卡，每次访问和交互通过这个虚拟网卡交换数据。
-<em><strong>虚拟机发送数据给实体机</strong></em>：虚拟机系统-&gt;虚拟网卡-&gt;实体机系统（可以发现是不经过真实网卡的流程简单很多）；
+<li><strong>NAT模式</strong>： 实际是虚拟了一个网卡出来，虚拟机直接使用链接这个虚拟网卡，每次访问和交互通过这个虚拟网卡交换数据。<br>
+<em><strong>虚拟机发送数据给实体机</strong></em>：虚拟机系统-&gt;虚拟网卡-&gt;实体机系统（可以发现是不经过真实网卡的流程简单很多）；<br>
 <em><strong>虚拟机访问外网</strong></em>：虚拟机系统-&gt;虚拟网卡-&gt;实体机系统-&gt;真实网卡-&gt;路由器-&gt;外网。</li>
 </ul>
 

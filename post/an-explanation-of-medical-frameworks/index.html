@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>对于医疗项目框架的讲述——前端部分 | 性感知识，在线分享</title>
-<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563591869587">
+<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563761291910">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://tdmaker.github.io/randy-blogs//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://tdmaker.github.io/randy-blogs/">
-  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563591869587" alt="">
+  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563761291910" alt="">
   </a>
   <h1 class="site-title">
     性感知识，在线分享
@@ -108,8 +108,8 @@
 <ul>
 <li>
 <h3 id="左侧导航菜单">左侧导航菜单</h3>
-全功能列表存在如下文件中：
-<em><strong>path-to-your-project/src/app/_nav.ts</strong></em>
+全功能列表存在如下文件中：<br>
+<em><strong>path-to-your-project/src/app/_nav.ts</strong></em><br>
 TIPS：
 <ul>
 <li>与原框架相比，<code>NavData</code> 接口增加 <code>pcode?: string;</code>，<code>pcode</code> 对应于后台权限表中的某个权限的权限代码，登录时后台会以正则表达式字面量的形式返回当前用户所具有的所有权限，我会 test 这个 RegExp 与这些 pcode，true 则添加。如果某元素不含有 <code>pcode</code> 这个 property，则默认添加；</li>
@@ -160,7 +160,7 @@ children: [
 <h2 id="我写的一些公共功能的使用">我写的一些公共功能的使用</h2>
 <p><strong>基本上都可以在“自然人管理”这个例子下找到使用方法（要使用，先引入相关模块）</strong></p>
 <ul>
-<li><strong>datatable</strong> 是一个组件，相关设置通过属性传值，组件选择器与接口格式如下：
+<li><strong>datatable</strong> 是一个组件，相关设置通过属性传值，组件选择器与接口格式如下：<br>
 <em><strong>path-to-your-project/src/app/views/system/people/people.component.html</strong></em></li>
 </ul>
 <pre><code class="language-html">&lt;app-rd-datatable #tb [rdTHead]=&quot;thead&quot; [rdTbConfig]=&quot;tbConfig&quot; (selectedRows)=&quot;setSelectedRows($event)&quot;&gt;&lt;/app-rd-datatable&gt;
@@ -185,7 +185,7 @@ children: [
   };
 </code></pre>
 <ul>
-<li><strong>datalist-validator</strong> 是一个指令，当表单中有长列表形式的域需要校验时，往往可以用到这个指令，如：
+<li><strong>datalist-validator</strong> 是一个指令，当表单中有长列表形式的域需要校验时，往往可以用到这个指令，如：<br>
 <em><strong>path-to-your-project/src/app/views/system/people/people.component.html</strong></em></li>
 </ul>
 <pre><code class="language-html">&lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;country&quot; list=&quot;psy&quot; formControlName=&quot;country&quot; placeholder=&quot;请选择国家&quot; [appRdDatalist]=&quot;countrys4V&quot;/&gt;

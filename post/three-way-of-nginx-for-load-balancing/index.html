@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Nginx 实现负载均衡有三种策略 | 性感知识，在线分享</title>
-<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563591869587">
+<link rel="shortcut icon" href="https://tdmaker.github.io/randy-blogs//favicon.ico?v=1563761291910">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://tdmaker.github.io/randy-blogs//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://tdmaker.github.io/randy-blogs/">
-  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563591869587" alt="">
+  <img class="avatar" src="https://tdmaker.github.io/randy-blogs//images/avatar.png?v=1563761291910" alt="">
   </a>
   <h1 class="site-title">
     性感知识，在线分享
@@ -89,12 +89,12 @@
             
             <div class="post-content">
               <ul>
-<li><strong>轮询调度算法（Round-Robin）</strong>
+<li><strong>轮询调度算法（Round-Robin）</strong><br>
 轮询调度算法的原理，就是是把用户的请求按照顺序的轮流分配给app server，不断循环。</li>
-<li><strong>最少连接（least-connected）</strong>
+<li><strong>最少连接（least-connected）</strong><br>
 Nginx 会找出最少的连接的服务器出来，把用户的请求分配到该台app server。</li>
-<li><strong>IP散列算法（ip-hash）</strong>
-根据用户请求的IP，通过散列算法把请求分配到不同的服务器上。
+<li><strong>IP散列算法（ip-hash）</strong><br>
+根据用户请求的IP，通过散列算法把请求分配到不同的服务器上。<br>
 IP-HASH 和 session 同步有关，这个算法的大致原理就是，根据请求的目标IP地址，作为散列键从静态分配的散列表找出对应的服务器，然后根据这台服务器的负载能力进行转发。</li>
 </ul>
 
