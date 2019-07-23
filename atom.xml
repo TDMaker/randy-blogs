@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tdmaker.github.io/randy-blogs/</id>
     <title>性感知识，在线分享</title>
-    <updated>2019-07-22T02:08:36.011Z</updated>
+    <updated>2019-07-23T01:51:24.111Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tdmaker.github.io/randy-blogs/"/>
     <link rel="self" href="https://tdmaker.github.io/randy-blogs//atom.xml"/>
@@ -10,6 +10,203 @@
     <logo>https://tdmaker.github.io/randy-blogs//images/avatar.png</logo>
     <icon>https://tdmaker.github.io/randy-blogs//favicon.ico</icon>
     <rights>All rights reserved 2019, 性感知识，在线分享</rights>
+    <entry>
+        <title type="html"><![CDATA[JavaScript 中的 Date 对象]]></title>
+        <id>https://tdmaker.github.io/randy-blogs//post/date-object-in-javascript</id>
+        <link href="https://tdmaker.github.io/randy-blogs//post/date-object-in-javascript">
+        </link>
+        <updated>2019-07-23T00:53:47.000Z</updated>
+        <summary type="html"><![CDATA[<pre><code>// Chrome Console
+&gt;  Date;
+&lt;· ƒ Date() { [native code] }
+
+&gt;  Date();
+&lt;· &quot;Tue Jul 23 2019 08:56:20 GMT+0800 (中国标准时间)&quot;
+</code></pre>
+]]></summary>
+        <content type="html"><![CDATA[<pre><code>// Chrome Console
+&gt;  Date;
+&lt;· ƒ Date() { [native code] }
+
+&gt;  Date();
+&lt;· &quot;Tue Jul 23 2019 08:56:20 GMT+0800 (中国标准时间)&quot;
+</code></pre>
+<!-- more -->
+<h1 id="内容">内容</h1>
+<p><code>const date = new Date();</code></p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th style="text-align:center">value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td style="text-align:center">Tue Jul 23 2019 09:01:11 GMT+0800 (中国标准时间)</td>
+</tr>
+<tr>
+<td>date.constructor</td>
+<td style="text-align:center">ƒ Date() { [native code] }</td>
+</tr>
+<tr>
+<td>date.getDate()</td>
+<td style="text-align:center">23</td>
+</tr>
+<tr>
+<td>date.getDay()</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td>date.getMonth()</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td>date.getFullYear()</td>
+<td style="text-align:center">2019</td>
+</tr>
+<tr>
+<td>date.getHours()</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td>date.getMinutes()</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>date.getSeconds()</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td>date.setDate(12)</td>
+<td style="text-align:center">1562893271338</td>
+</tr>
+<tr>
+<td>date.getDate()</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td>date.setMonth(1)</td>
+<td style="text-align:center">1549933271338</td>
+</tr>
+<tr>
+<td>date.getMonth()</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="时间格式">时间格式</h1>
+<h3 id="3-种时间格式">3 种时间格式：</h3>
+<ul>
+<li><strong>GMT</strong>（Greenwich Mean Time），即格林尼治平均时；</li>
+<li><strong>UTC</strong>（Universal Time Coordinated），即通用协调时；</li>
+<li><strong>Timestamp</strong>，即时间戳，是指格林尼治时间1970年01月01日00时00分00秒起至现在的毫秒数。</li>
+</ul>
+<p><strong>GMT</strong> 与 <strong>UTC</strong> 一样，都是指英国伦敦的本地时间，区别在于 <strong>GMT</strong> 是根据地球的自传和公转来计算时间，<strong>UTC</strong> 是根据原子钟来计算时间。例如，<strong>GMT</strong>、<strong>UTC</strong>：<code>Sun Jul 08 2018 15:30:26 GMT+0800</code>，其中，<code>GMT+0800</code> 表示时区，<code>+0800</code> 表示比格林尼治时间时间多了 8 个时区，也就是北京时间比伦敦时间晚 8 个小时。</p>
+<h1 id="date-内置对象">Date 内置对象</h1>
+<h2 id="一-作普通函数调用">一、作普通函数调用</h2>
+<p>返回 GMT 格式的当前时间的字符串，传入任何参数都无效。</p>
+<pre><code>// Chrome Console
+&gt;  Date();
+&lt;· &quot;Tue Jul 23 2019 09:18:57 GMT+0800 (中国标准时间)&quot;
+
+&gt;  Date('2018-06-24');
+&lt;· &quot;Tue Jul 23 2019 09:19:32 GMT+0800 (中国标准时间)&quot;
+</code></pre>
+<h2 id="二-作构造函数用">二、作构造函数用</h2>
+<p>使用 new 操作符，则返回 GMT 格式的时间对象，其参数分为 3 类：</p>
+<h3 id="1-时间戳number类型">1、时间戳，number类型</h3>
+<pre><code>// Chrome Console
+&gt;  new Date(1549933271338);
+&lt;· Tue Feb 12 2019 09:01:11 GMT+0800 (中国标准时间)
+</code></pre>
+<h3 id="2-表示日期的字符串">2、表示日期的字符串</h3>
+<ul>
+<li>yyyy-MM-dd HH:mm:ss<pre><code>// Chrome Console
+&gt;  new Date(''2019-07-23 08:56:20'');
+&lt;· Tue Jul 23 2019 08:56:20 GMT+0800 (中国标准时间)
+</code></pre>
+</li>
+<li>yyyy-MM-ddTHH:mm:ss<br>
+<em>其实跟第一个是一个意思。</em><pre><code>// Chrome Console
+&gt;  new Date(''2019-07-23T08:56:20'');
+&lt;· Tue Jul 23 2019 08:56:20 GMT+0800 (中国标准时间)
+</code></pre>
+</li>
+<li>Sun Jul 08, 2018 16:18:54 GMT<br>
+<em>其实就是 GMT(UTC) 格式的字符串。</em><pre><code>// Chrome Console
+&gt;  new Date('Tue Jul 23 2019 09:01:11 GMT');
+&lt;· Tue Jul 23 2019 17:01:11 GMT+0800 (中国标准时间)
+</code></pre>
+</li>
+</ul>
+<h3 id="3-year-month-day-hour-minutes-seconds-milliseconds">3、（year, month, day, hour, minutes, seconds, milliseconds）</h3>
+<pre><code>// Chrome Console
+&gt;  new Date(2019, 07, 23, 09, 28, 55)
+&lt;· Fri Aug 23 2019 09:28:55 GMT+0800 (中国标准时间)
+</code></pre>
+<h3 id="4-如果不传参数则会根据系统设置的当前时间来创建一个-date-对象">4、如果不传参数，则会根据系统设置的当前时间来创建一个 Date 对象</h3>
+<h2 id="三-需要注意的地方">三、需要注意的地方</h2>
+<ol>
+<li>构造函数的参数省略<br>
+关于 Date 构造函数的参数省略（是指省略其中的年、月、日之类的，不是省略整个参数）可能会出错。
+<ul>
+<li>只指定“时分秒”，会出错<pre><code> // Chrome Console
+ &gt;  new Date('09:33:55');
+ &lt;· Invalid Date
+</code></pre>
+</li>
+<li>分隔符非常重要，可以省略具体时间，但不能省略分隔符<pre><code>// Chrome Console
+&gt;  new Date('-07- 09:33:55');
+&lt;· Sun Jul 01 2001 09:33:55 GMT+0800 (中国标准时间)
+
+&gt;  new Date('23 09:35:55');
+&lt;· Invalid Date
+</code></pre>
+</li>
+</ul>
+</li>
+<li>JavaScript中，月份是从 0 开始计时的，比如用 2019-07-23 初始化的时间对象获取月份<pre><code>// Chrome Console
+&gt;  new Date('2019-07-23').getMonth();
+&lt;· 6
+</code></pre>
+</li>
+<li><code>getDate()</code> 是返回一个月的第几天，<code>getDay()</code> 是返回一星期的第几天，其中 0 为星期天</li>
+<li>获取年份是 <code>getFullYear()</code>，而不是 <code>getYear()</code></li>
+<li><code>valueOf()</code> 返回原始值，与调用 <code>getTime()一样</code>，返回时间戳，一般是用于内部调用，可能是 <code>getTime()</code> 的内部实现</li>
+</ol>
+<h2 id="四-工具函数">四、工具函数</h2>
+<pre><code>// javascript
+/**
+ * 时间戳 转换为 yyyy-MM-dd HH:mm:ss
+ * @param {number} timestamp 
+ * @param {string} format 
+ */
+function timestampToDateTime(timestamp = Date.now(), format = 'yyyy-MM-dd HH:mm:ss') {
+  if (isNaN(timestamp)) {
+    return '';
+  }
+  if (format.length &lt; 4 || 'yyyy-MM-dd HH:mm:ss'.indexOf(format) !== 0) {
+    return '';
+  }
+  const date = new Date(Number(timestamp));
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+  return format.replace('yyyy', year)
+    .replace('MM', month &gt; 9 ? month : `0${month}`)
+    .replace('dd', day &gt; 9 ? day : `0${day}`)
+    .replace('HH', hour &gt; 9 ? hour : `0${hour}`)
+    .replace('mm', minute &gt; 9 ? minute : `0${minute}`)
+    .replace('ss', second &gt; 9 ? second : `0${second}`);
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[人工智能的前世今生]]></title>
         <id>https://tdmaker.github.io/randy-blogs//post/the-past-and-present-of artificial-intelligence</id>
@@ -1276,102 +1473,6 @@ END 程序结束.</p>
 桃子
 包子
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[软件版本号规范与命名原则]]></title>
-        <id>https://tdmaker.github.io/randy-blogs//post/software-version-specification-and-naming-principle</id>
-        <link href="https://tdmaker.github.io/randy-blogs//post/software-version-specification-and-naming-principle">
-        </link>
-        <updated>2019-07-12T12:14:03.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="软件版本阶段说明">软件版本阶段说明</h2>
-<ul>
-<li><code>Alpha</code> 版: 此版本表示该软件在此阶段主要是以实现软件功能为主，通常只在软件开发者内部交流，一般而言，该版本软件的 Bug 较多，需要继续修改。</li>
-<li><code>Beta</code> 版: 该版本相对于 α 版已有了很大的改进，消除了严重的错误，但还是存在着一些缺陷，需要经过多次测试来进一步消除，此版本主要的修改对像是软件的 UI。</li>
-<li><code>RC</code> 版: 该版本已经相当成熟了，基本上不存在导致错误的 Bug，与即将发行的正式版相差无几。</li>
-<li><code>Release</code> 版: 该版本意味“最终版本”，在前面版本的一系列测试版之后，终归会有一个正式版本，是最终交付用户使用的一个版本。该版本有时也称为标准版。一般情况下，<code>Release</code> 不会以单词形式出现在软件封面上，取而代之的是符号 (R)。</li>
-</ul>
-<h2 id="版本命名规范">版本命名规范</h2>
-<p>软件版本号由四部分组成：</p>
-<ul>
-<li>第一个1为主版本号</li>
-<li>第二个1为子版本号</li>
-<li>第三个1为阶段版本号</li>
-<li>第四部分为日期版本号加希腊字母版本号</li>
-</ul>
-<p>希腊字母版本号共有5种，分别为：<code>base</code>、<code>alpha</code>、<code>beta</code>、<code>RC</code>、<code>release</code>。例如：<code>1.1.1.051021_beta</code>。<br>
-<strong>常规</strong>：完全的版本号定义，分三项：：&lt;主版本号&gt;.&lt;次版本号&gt;.&lt;修订版本号&gt;，如 <code>1.0.0</code>。</p>
-<h2 id="版本号定修改规则">版本号定修改规则</h2>
-<ul>
-<li><code>主版本号(1)</code>：当功能模块有较大的变动，比如增加多个模块或者整体架构发生变化。此版本号由项目决定是否修改。</li>
-<li><code>子版本号(1)</code>：当功能有一定的增加或变化，比如增加了对权限控制、增加自定义视图等功能。此版本号由项目决定是否修改。</li>
-<li><code>阶段版本号(1)</code>：一般是 Bug 修复或是一些小的变动，要经常发布修订版，时间间隔不限，修复一个严重的bug即可发布一个修订版。此版本号由项目经理决定是否修改。</li>
-<li><code>日期版本号(051021)</code>: 用于记录修改项目的当前日期，每天对项目的修改都需要更改日期版本号。此版本号由开发人员决定是否修改。</li>
-<li><code>希腊字母版本号(beta)</code>: 此版本号用于标注当前版本的软件处于哪个开发阶段，当软件进入到另一个阶段时需要修改此版本号。此版本号由项目决定是否修改。</li>
-</ul>
-<h2 id="文件命名规范">文件命名规范</h2>
-<p>文件名称由四部分组成：第一部分为项目名称，第二部分为文件的描述，第三部分为当前软件的版本号，第四部分为文件阶段标识加文件后缀，例如：项目外 包平台测试报告 <code>1.1.1.051021_beta_b.xls</code>，此文件为项目外包平台的测试报告文档，版本号为：<code>1.1.1.051021_beta</code>。</p>
-<p>如果是同一版本同一阶段的文件修改过两次以上，则在阶段标识后面加以数字标识，每次修改数字加1，项目外包平台测试报告 <code>1.1.1.051021_beta_b1.xls</code>。</p>
-<p>当有多人同时提交同一份文件时，可以在阶段标识的后面加入人名或缩写来区别，例如：项目外包平台测试报告 <code>1.1.1.051021_beta_b_LiuQi.xls</code>。当此文件再次提交时也可以在人名或人名缩写的后面加入序号来区别，例如：项目外包平台测试 报告 <code>1.1.1.051021_beta_b_LiuQi2.xls</code>。</p>
-<h2 id="版本号的阶段标识">版本号的阶段标识</h2>
-<p>软件的每个版本中包括11个阶段，详细阶段描述如下：</p>
-<table>
-<thead>
-<tr>
-<th>阶段名称</th>
-<th>阶段标识</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>需求控制</td>
-<td>a</td>
-</tr>
-<tr>
-<td>设计阶段</td>
-<td>b</td>
-</tr>
-<tr>
-<td>编码阶段</td>
-<td>c</td>
-</tr>
-<tr>
-<td>单元测试</td>
-<td>d</td>
-</tr>
-<tr>
-<td>单元测试修改</td>
-<td>e</td>
-</tr>
-<tr>
-<td>集成测试</td>
-<td>f</td>
-</tr>
-<tr>
-<td>集成测试修改</td>
-<td>g</td>
-</tr>
-<tr>
-<td>系统测试</td>
-<td>h</td>
-</tr>
-<tr>
-<td>系统测试修改</td>
-<td>i</td>
-</tr>
-<tr>
-<td>验收测试</td>
-<td>j</td>
-</tr>
-<tr>
-<td>验收测试修改</td>
-<td>k</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>来自 <a href="https://www.jianshu.com/p/75374e299ef8">软件版本号规范与命名原则</a></p>
-</blockquote>
 ]]></content>
     </entry>
 </feed>
